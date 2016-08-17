@@ -1,0 +1,20 @@
+{
+  "name": "thout",
+  "description": "thout",
+  "version": "0.0.1",
+  "author": "mkwtys <mkwtys@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/mkwtys/thout/issues"
+  },
+  "homepage": "https://github.com/mkwtys/thout#readme",
+  "keywords": [],
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkwtys/thout.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
