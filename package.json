@@ -3,6 +3,9 @@
   "description": "test runner",
   "version": "0.1.0",
   "author": "mkwtys <mkwtys@gmail.com>",
+  "bin": {
+    "thout": "bin/thout.js"
+  },
   "bugs": {
     "url": "https://github.com/mkwtys/thout/issues"
   },
@@ -17,6 +20,13 @@
     "nyc": "8.1.0",
     "tape": "4.6.0"
   },
+  "directories": {
+    "test": "test"
+  },
+  "files": [
+    "bin",
+    "lib"
+  ],
   "homepage": "https://github.com/mkwtys/thout#readme",
   "keywords": [],
   "license": "MIT",
