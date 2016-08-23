@@ -1,7 +1,7 @@
 {
   "name": "thout",
   "description": "test runner",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "mkwtys <mkwtys@gmail.com>",
   "bin": {
     "thout": "bin/thout.js"
