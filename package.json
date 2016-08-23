@@ -37,6 +37,6 @@
   },
   "scripts": {
     "cover": "nyc --reporter=lcov --reporter=text npm t",
-    "test": "tape test/**/*.js"
+    "test": "nyc -s tape test/**/*.js"
   }
 }
