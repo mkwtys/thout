@@ -28,7 +28,10 @@
     "lib"
   ],
   "homepage": "https://github.com/mkwtys/thout#readme",
-  "keywords": [],
+  "keywords": [
+    "runner",
+    "test"
+  ],
   "license": "MIT",
   "main": "lib/index.js",
   "repository": {
