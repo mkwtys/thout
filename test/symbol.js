@@ -1,3 +1,4 @@
+'use strict';
 const symbol = require('../lib/symbol');
 const test = require('tape');
 

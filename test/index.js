@@ -1,3 +1,4 @@
+'use strict';
 const thout = require('../lib/');
 const test = require('tape');
 

@@ -1,3 +1,4 @@
+'use strict';
 const Test = require('../lib/Test');
 const test = require('tape');
 

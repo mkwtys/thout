@@ -1,3 +1,4 @@
+'use strict';
 const Runner = require('../lib/Runner');
 const test = require('tape');
 
