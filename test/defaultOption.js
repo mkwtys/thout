@@ -1,3 +1,4 @@
+'use strict';
 const defaultOption = require('../lib/defaultOption');
 const test = require('tape');
 
