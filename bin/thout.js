@@ -26,7 +26,7 @@ function main() {
   if (files.length > 0) {
     options.files = files;
   }
-  thout.setOptions(Object.assign({}, defaultOption, options));
+  thout.setup(Object.assign({}, defaultOption, options));
   thout.loadFiles(glob.sync(files));
 }
 
