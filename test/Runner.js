@@ -30,11 +30,11 @@ test('Runner#addTest', (t) => {
   t.end();
 });
 
-test('Runner#setOptions', (t) => {
+test('Runner#setup', (t) => {
   const runner = new Runner();
-  runner.setOptions({});
+  runner.setup({});
   t.deepEqual(runner._options, defaultOption);
-  runner.setOptions({ test: 'test' });
+  runner.setup({ test: 'test' });
   t.equal(runner._options.test, 'test');
   t.end();
 });
