@@ -26,7 +26,6 @@ test('Runner#addTest', (t) => {
   runner.addTest('test', () => {});
   t.ok(runner._tests[0] instanceof Test);
   t.equal(runner._tests.length, 1);
-  t.equal(runner._pendingTests.length, 1);
   t.end();
 });
 
