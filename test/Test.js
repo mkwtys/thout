@@ -27,12 +27,12 @@ test('Test#getTitle', (t) => {
   t.end();
 });
 
-test('Test#getFilename', (t) => {
+test('Test#getFileName', (t) => {
   let test = new Test();
-  t.ok(test.getFilename() === '');
+  t.ok(test.getFileName() === '');
 
   test = new Test('test', undefined, 'test.js');
-  t.ok(test.getFilename() === 'test.js');
+  t.ok(test.getFileName() === 'test.js');
 
   t.end();
 });
@@ -49,34 +49,6 @@ test('Test#isAsync', (t) => {
 
   test = new Test('test', (done) => {});
   t.ok(test.isAsync() === true);
-
-  t.end();
-});
-
-test('Test#isPass', (t) => {
-  const runner = new Runner();
-
-  let test = new Test();
-  t.ok(test.isPass() === false);
-
-  test = new Test('test', undefined, '', runner);
-  test.bind();
-  runner.emit('test:pass');
-  t.ok(test.isPass() === true);
-
-  t.end();
-});
-
-test('Test#isFail', (t) => {
-  const runner = new Runner();
-
-  let test = new Test();
-  t.ok(test.isFail() === false);
-
-  test = new Test('test', undefined, '', runner);
-  test.bind();
-  runner.emit('test:fail');
-  t.ok(test.isFail() === true);
 
   t.end();
 });
@@ -99,20 +71,6 @@ test('Test#isTimeout', (t) => {
 
   test.timeout();
   t.ok(test.isTimeout() === true);
-
-  t.end();
-});
-
-test('Test#isError', (t) => {
-  const runner = new Runner();
-
-  let test = new Test();
-  t.ok(test.isError() === false);
-
-  test = new Test('test', undefined, '', runner);
-  test.bind();
-  runner.emit('test:error');
-  t.ok(test.isError() === true);
 
   t.end();
 });
