@@ -23,16 +23,14 @@ test('runner end', (t) => {
   const runner = new EventEmitter();
   const logger = { log: sinon.spy() };
   const reporter = new Reporter(runner, logger);
-  runner.emit('runner:end');
-  t.ok(logger.log.called);
-
   reporter._passCount = 1;
   reporter._failCount = 1;
   reporter._skipCount = 1;
   runner.emit('runner:end');
-  t.ok(stripAnsi(logger.log.args[2][0]) === '1 pass');
-  t.ok(stripAnsi(logger.log.args[3][0]) === '1 fail');
-  t.ok(stripAnsi(logger.log.args[4][0]) === '1 pending');
+  t.ok(logger.log.called);
+  t.ok(stripAnsi(logger.log.args[1][0]) === '1 pass');
+  t.ok(stripAnsi(logger.log.args[2][0]) === '1 fail');
+  t.ok(stripAnsi(logger.log.args[3][0]) === '1 pending');
   t.end();
 });
 
