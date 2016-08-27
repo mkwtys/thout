@@ -5,11 +5,6 @@ const sinon = require('sinon');
 const stripAnsi = require('strip-ansi');
 const test = require('tape');
 
-test('Reporter', (t) => {
-  t.ok(Reporter);
-  t.end();
-});
-
 test('runner start', (t) => {
   const runner = new EventEmitter();
   const logger = { log: sinon.spy() };

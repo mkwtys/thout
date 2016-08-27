@@ -1,33 +1,39 @@
 #! /usr/bin/env node
 'use strict';
 const defaultOption = require('../lib/defaultOption');
-const thout = require("../lib/");
-const minimist = require("minimist");
-const glob = require("glob-all");
-const pkg = require("../package.json");
+const glob = require('glob-all');
+const minimist = require('minimist');
+const path = require('path');
+const pkg = require('../package.json');
+const thout = require('../lib/');
+
 const argv = minimist(process.argv.slice(2), {
   boolean: [
-    "help",
-    "version"
+    'help',
+    'version'
   ],
   alias: {
-    "h": "help",
-    "v": "version"
+    'h': 'help',
+    'v': 'version'
   },
   default: {
-    "help": false,
-    "version": false
+    'help': false,
+    'version': false
   }
 });
 
 function main() {
   const options = {};
-  let files = argv._;
+  const files = argv._;
   if (files.length > 0) {
     options.files = files;
   }
   thout.setup(Object.assign({}, defaultOption, options));
-  thout.loadFiles(glob.sync(files));
+
+  glob.sync(files)
+    .forEach((file) => {
+      require(path.resolve(process.cwd(), file));
+    });
 }
 
 function showHelp() {
