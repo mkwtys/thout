@@ -4,18 +4,6 @@ const Runner = require('../lib/Runner');
 const Test = require('../lib/Test');
 const test = require('tape');
 
-test('Runner event', (t) => {
-  const runner = new Runner();
-  const unsubscribe = runner.on('test', () => {
-    t.ok(true);
-  });
-  t.ok(runner._emitter._events['test']);
-  runner.emit('test');
-  unsubscribe();
-  t.notOk(runner._emitter._events['test']);
-  t.end();
-});
-
 test('Runner#addTest', (t) => {
   const runner = new Runner();
   runner.addTest('test', () => {});
