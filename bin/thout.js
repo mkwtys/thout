@@ -4,6 +4,7 @@ const defaultOption = require('../lib/defaultOption');
 const thout = require("../lib/");
 const minimist = require("minimist");
 const glob = require("glob-all");
+const path = require('path');
 const pkg = require("../package.json");
 const argv = minimist(process.argv.slice(2), {
   boolean: [
@@ -22,12 +23,16 @@ const argv = minimist(process.argv.slice(2), {
 
 function main() {
   const options = {};
-  let files = argv._;
+  const files = argv._;
   if (files.length > 0) {
     options.files = files;
   }
   thout.setup(Object.assign({}, defaultOption, options));
-  thout.loadFiles(glob.sync(files));
+
+  glob.sync(files)
+    .forEach((file) => {
+      require(path.resolve(process.cwd(), file));
+    });
 }
 
 function showHelp() {
