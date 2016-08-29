@@ -24,7 +24,7 @@ test('pass', () => {
 });
 
 test('fail', () => {
-  assert.fail(false);
+  assert(false);
 });
 
 test('promise resolve', () => {
@@ -41,13 +41,19 @@ test('async', (done) => {
   }, 10);
 });
 
-test('async timeout', (done) => {});
+test('timeout', (done) => {});
 
 test('pending');
 
 test.skip('skip', () => {
-  assert.fail(false);
+  assert(true);
 });
+```
+
+## Example
+
+```sh
+$ thout example/
 ```
 
 ## License
