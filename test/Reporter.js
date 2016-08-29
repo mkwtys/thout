@@ -33,7 +33,7 @@ test('test start - 1st test', (t) => {
   const runner = new EventEmitter();
   const logger = { log: sinon.spy() };
   const reporter = new Reporter(runner, logger);
-  runner.emit('test:start', { getFileName: () => { return 'fileName' } });
+  runner.emit('test:start', { getFileName: () => { return 'fileName'; } });
   t.ok(logger.log.args[1][0] === 'fileName');
   t.ok(reporter._testCount === 1);
   t.end();
@@ -43,8 +43,8 @@ test('test start - 2nd test', (t) => {
   const runner = new EventEmitter();
   const logger = { log: sinon.spy() };
   const reporter = new Reporter(runner, logger);
-  runner.emit('test:start', { getFileName: () => { return '' } });
-  runner.emit('test:start', { getFileName: () => { return 'fileName' } });
+  runner.emit('test:start', { getFileName: () => { return ''; } });
+  runner.emit('test:start', { getFileName: () => { return 'fileName'; } });
   t.ok(logger.log.args[3][0] === 'fileName');
   t.ok(reporter._testCount === 2);
   t.end();
@@ -63,7 +63,7 @@ test('pass', (t) => {
   const runner = new EventEmitter();
   const logger = { log: sinon.spy() };
   const reporter = new Reporter(runner, logger);
-  runner.emit('test:start', { getFileName: () => { return '' }, getTitle: () => { return 'title' } });
+  runner.emit('test:start', { getFileName: () => { return ''; }, getTitle: () => { return 'title'; } });
   runner.emit('test:pass');
   t.ok(reporter._passCount === 1);
   t.ok(stripAnsi(logger.log.args[2][0]) === '✓ title');
@@ -74,7 +74,7 @@ test('fail', (t) => {
   const runner = new EventEmitter();
   const logger = { log: sinon.spy() };
   const reporter = new Reporter(runner, logger);
-  runner.emit('test:start', { getFileName: () => { return '' }, getTitle: () => { return 'title' } });
+  runner.emit('test:start', { getFileName: () => { return ''; }, getTitle: () => { return 'title'; } });
   runner.emit('test:fail', new Error('fail'));
   t.ok(reporter._failCount === 1);
   t.ok(stripAnsi(logger.log.args[3][0]) === '✖ title');
@@ -86,7 +86,7 @@ test('skip', (t) => {
   const runner = new EventEmitter();
   const logger = { log: sinon.spy() };
   const reporter = new Reporter(runner, logger);
-  runner.emit('test:start', { getFileName: () => { return '' }, getTitle: () => { return 'title' } });
+  runner.emit('test:start', { getFileName: () => { return ''; }, getTitle: () => { return 'title'; } });
   runner.emit('test:skip');
   t.ok(reporter._skipCount === 1);
   t.ok(stripAnsi(logger.log.args[2][0]) === '- title');

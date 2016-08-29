@@ -1,5 +1,4 @@
 'use strict';
-const Runner = require('../lib/Runner');
 const Test = require('../lib/Test');
 const test = require('tape');
 
@@ -59,8 +58,6 @@ test('Test#isSkip', (t) => {
 });
 
 test('Test#isTimeout', (t) => {
-  const runner = new Runner();
-
   let test = new Test();
   t.ok(test.isTimeout() === false);
 
