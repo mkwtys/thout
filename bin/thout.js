@@ -13,10 +13,12 @@ const argv = minimist(process.argv.slice(2), {
     'version'
   ],
   alias: {
+    t: 'timeout',
     h: 'help',
     v: 'version'
   },
   default: {
+    timeout: 2000,
     help: false,
     version: false
   }
@@ -25,9 +27,14 @@ const argv = minimist(process.argv.slice(2), {
 function main() {
   const options = {};
   const files = argv._;
+
   if (files.length > 0) {
     options.files = files;
   }
+  if (argv.t) {
+    options.timeout = argv.t;
+  }
+  
   thout.setup(Object.assign({}, defaultOption, options));
 
   glob.sync(files)
