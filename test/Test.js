@@ -1,14 +1,39 @@
 'use strict';
+const sinon = require('sinon');
 const Test = require('../lib/Test');
 const test = require('tape');
 
-test.skip('Test#run', (t) => {
+test('Test#run', (t) => {
+  const fn = sinon.spy();
+  let test = new Test('test', fn);
+  test.run();
+  t.ok(fn.called);
+  t.end();
 });
 
-test.skip('Test#end', (t) => {
+test('Test#run - skip', (t) => {
+  const fn = sinon.spy();
+  let test = new Test('test');
+  test.run();
+  t.ok(test.isSkip());
+  t.ok(fn.called === false);
+  t.end();
 });
 
-test.skip('Test#timeout', (t) => {
+test('Test#run - async', (t) => {
+  const fn = sinon.spy();
+  let test = new Test('test', (done) => { fn(); });
+  test.run();
+  t.ok(test.isAsync());
+  t.ok(fn.called);
+  t.end();
+});
+
+test('Test#timeout', (t) => {
+  let test = new Test();
+  test.timeout();
+  t.ok(test.isTimeout() === true);
+  t.end();
 });
 
 test('Test#getTitle', (t) => {
@@ -57,12 +82,8 @@ test('Test#isSkip', (t) => {
   t.end();
 });
 
-test('Test#isTimeout', (t) => {
+test('timeout', (t) => {
   let test = new Test();
   t.ok(test.isTimeout() === false);
-
-  test.timeout();
-  t.ok(test.isTimeout() === true);
-
   t.end();
 });

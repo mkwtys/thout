@@ -8,7 +8,7 @@ const test = require('tape');
 test('runner start', (t) => {
   const runner = new EventEmitter();
   const logger = { log: sinon.spy() };
-  const reporter = new Reporter(runner, logger);
+  new Reporter(runner, logger);
   runner.emit('runner:start', { getFileName: () => {} });
   t.ok(logger.log.called);
   t.end();
@@ -95,8 +95,10 @@ test('skip', (t) => {
 
 test('error', (t) => {
   const runner = new EventEmitter();
-  const reporter = new Reporter(runner);
-  runner.emit('test:error');
+  const logger = { log: sinon.spy() };
+  const reporter = new Reporter(runner, logger);
+  runner.emit('test:start', { getFileName: () => { return ''; }, getTitle: () => { return 'title'; } });
+  runner.emit('test:error', new Error('error'));
   t.ok(reporter._errorCount === 1);
   t.end();
 });
