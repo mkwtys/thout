@@ -4,7 +4,6 @@ const test = require('tape');
 
 test('thout', (t) => {
   t.ok(thout);
-  t.ok(thout.runner);
   t.ok(thout.setup);
   t.ok(thout.skip);
   t.end();
