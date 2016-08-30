@@ -1,4 +1,5 @@
 'use strict';
+const assert = require('assert');
 const defaultOption = require('../lib/defaultOption');
 const Runner = require('../lib/Runner');
 const Test = require('../lib/Test');
@@ -22,11 +23,111 @@ test('Runner#setup', (t) => {
 });
 
 test('Runner#run', (t) => {
+  t.plan(1);
+
   const runner = new Runner();
-  runner.addTest('test', () => {});
   runner.on('runner:start', () => {
-    t.ok(true);
+    t.pass('called');
   });
   runner.run();
+  runner.run();
+
   t.end();
+});
+
+test('runner event', (t) => {
+  t.plan(2);
+
+  const runner = new Runner();
+  runner.on('runner:start', () => {
+    t.pass('called');
+  });
+  runner.on('runner:end', () => {
+    t.pass('called');
+  });
+  runner.run();
+});
+
+test('test event', (t) => {
+  t.plan(2);
+
+  const runner = new Runner();
+  runner.on('test:start', () => {
+    t.pass('called');
+  });
+  runner.on('test:end', () => {
+    t.pass('called');
+  });
+  runner.run();
+  runner.addTest('test', () => {});
+});
+
+test('pass', (t) => {
+  const runner = new Runner();
+  runner.on('test:pass', () => {
+    t.pass('called');
+    t.end();
+  });
+  runner.run();
+  runner.addTest('test', () => {});
+});
+
+test('fail', (t) => {
+  const runner = new Runner();
+  runner.on('test:fail', () => {
+    t.pass('called');
+    t.end();
+  });
+  runner.run();
+  runner.addTest('test', () => { assert.fail(); });
+});
+
+test('skip', (t) => {
+  const runner = new Runner();
+  runner.on('test:skip', () => {
+    t.pass('called');
+    t.end();
+  });
+  runner.run();
+  runner.addTest('test');
+});
+
+test('timeout', (t) => {
+  const runner = new Runner();
+  runner.on('test:error', () => {
+    t.pass('called');
+    t.end();
+  });
+  runner.run();
+  runner.addTest('test', (done) => { });
+});
+
+test('async', (t) => {
+  const runner = new Runner();
+  runner.on('test:pass', () => {
+    t.pass('called');
+    t.end();
+  });
+  runner.run();
+  runner.addTest('test', (done) => { done(); });
+});
+
+test('promise pass', (t) => {
+  const runner = new Runner();
+  runner.on('test:pass', () => {
+    t.pass('called');
+    t.end();
+  });
+  runner.run();
+  runner.addTest('test', () => { return Promise.resolve(); });
+});
+
+test('promise fail', (t) => {
+  const runner = new Runner();
+  runner.on('test:fail', () => {
+    t.pass('called');
+    t.end();
+  });
+  runner.run();
+  runner.addTest('test', () => { return Promise.reject(); });
 });
