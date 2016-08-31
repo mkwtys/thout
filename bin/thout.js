@@ -71,8 +71,10 @@ Usage
   ${Object.keys(pkg.bin)[0]} [options]
 
 Options
-  -h, --help       Show help.
-  -v, --version    Print version.
+  -h, --help       show help
+  -r, --require    require module
+  -t, --timeout    set test timeout [2000]
+  -v, --version    print version
 `);
 }
 
