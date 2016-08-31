@@ -1,4 +1,5 @@
 'use strict';
+const Runner = require('../lib/Runner');
 const sinon = require('sinon');
 const test = require('tape');
 const Thout = require('../lib/Thout');
@@ -43,5 +44,13 @@ test('setup', (t) => {
   thout.setup({ test: 'test' });
   t.ok(runner.setup.args);
   t.ok(runner.setup.called);
+  t.end();
+});
+
+test('reporter', (t) => {
+  const reporter = sinon.spy();
+  new Thout({ reporter: reporter });
+  t.ok(reporter.args[0][0] instanceof Runner);
+  t.ok(reporter.calledWithNew());
   t.end();
 });
