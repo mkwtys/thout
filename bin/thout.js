@@ -1,20 +1,27 @@
 #! /usr/bin/env node
 'use strict';
 const defaultOption = require('../lib/defaultOption');
-const glob = require('glob-all');
+const fs = require('fs');
+const globAll = require('glob-all');
 const minimist = require('minimist');
 const path = require('path');
 const pkg = require('../package.json');
 const thout = require('../lib/');
 
+const existsSync = fs.existsSync || path.existsSync;
+
 const argv = minimist(process.argv.slice(2), {
+  string: [
+    'require'
+  ],
   boolean: [
     'help',
     'version'
   ],
   alias: {
-    t: 'timeout',
     h: 'help',
+    r: 'require',
+    t: 'timeout',
     v: 'version'
   },
   default: {
@@ -27,6 +34,7 @@ const argv = minimist(process.argv.slice(2), {
 function main() {
   const options = {};
   const files = argv._;
+  let requires = [];
 
   if (files.length > 0) {
     options.files = files;
@@ -34,12 +42,24 @@ function main() {
   if (argv.t) {
     options.timeout = argv.t;
   }
-  
+  if (argv.r) {
+    requires = argv.r;
+    if (!Array.isArray(argv.r)) {
+      requires = [argv.r];
+    }
+  }
+
   thout.setup(Object.assign({}, defaultOption, options));
 
-  glob.sync(files)
+  requires.forEach((mod) => {
+    const isLocalFile = existsSync(mod) || existsSync(mod + '.js');
+    const file = isLocalFile ? path.resolve(mod) : mod;
+    require(file);
+  });
+
+  globAll.sync(files)
     .forEach((file) => {
-      require(path.resolve(process.cwd(), file));
+      require(path.resolve(file));
     });
 }
 
