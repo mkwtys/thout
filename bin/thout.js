@@ -25,8 +25,9 @@ const argv = minimist(process.argv.slice(2), {
     v: 'version'
   },
   default: {
-    timeout: 2000,
     help: false,
+    require: [],
+    timeout: 2000,
     version: false
   }
 });
