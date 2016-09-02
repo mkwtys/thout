@@ -1,6 +1,6 @@
 'use strict';
 const EventEmitter = require('events');
-const Reporter = require('../lib/Reporter');
+const Reporter = require('../lib/DefaultReporter');
 const sinon = require('sinon');
 const stripAnsi = require('strip-ansi');
 const test = require('tape');
