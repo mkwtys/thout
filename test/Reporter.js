@@ -50,14 +50,15 @@ test('test start - 2nd test', (t) => {
   t.end();
 });
 
-// test('test end', (t) => {
-//   const runner = new EventEmitter();
-//   const logger = { log: sinon.spy() };
-//   const reporter = new Reporter(runner, logger);
-//   runner.emit('test:end');
-//   t.ok(logger.log.called);
-//   t.end();
-// });
+test('test end', (t) => {
+  const runner = new EventEmitter();
+  const logger = { log: sinon.spy() };
+  const reporter = new Reporter(runner, logger);
+  reporter.reportTestEnd = sinon.spy();
+  runner.emit('test:end');
+  t.ok(reporter.reportTestEnd.called);
+  t.end();
+});
 
 test('pass', (t) => {
   const runner = new EventEmitter();
@@ -103,5 +104,12 @@ test('error', (t) => {
   t.end();
 });
 
-test.skip('timeout', (t) => {
+test('timeout', (t) => {
+  const runner = new EventEmitter();
+  const logger = { log: sinon.spy() };
+  const reporter = new Reporter(runner, logger);
+  reporter.reportTestTimeout = sinon.spy();
+  runner.emit('test:timeout');
+  t.ok(reporter.reportTestTimeout.called);
+  t.end();
 });
